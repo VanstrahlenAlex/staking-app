@@ -1,6 +1,7 @@
 //SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.35;
+// pragma solidity 0.8.35;
+pragma solidity ^0.8.0;
 
 import "../lib/openzeppelin-contracts/contracts/access/Ownable.sol";
 import "../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
@@ -31,6 +32,7 @@ contract StakingApp is Ownable {
 	event ChangeStakingPeriod(uint256 newStakingPeriod_);
 	event DepositTokens(address userAddress_, uint256 depositAmount_);
 	event WithdrawTokens(address userAddress_, uint256 withdrawAmount_);
+	event EtherSent(uint256 amount_);
 
 
 	constructor(address stakingToken_, address owner_, uint256 stakingPeriod_, uint256 fixedStakingAmount_, uint256 rewardPerPeriod_) Ownable(owner_) {
@@ -83,8 +85,15 @@ contract StakingApp is Ownable {
 		
 	}
 
+	receive() external payable onlyOwner {
+		emit EtherSent(msg.value); 
+	}
+
 
 	//Internal functions
+
+
+
 
 	function changeStakingPeriod(uint256 newStakingPeriod_) external onlyOwner {
 		stakingPeriod = newStakingPeriod_; 

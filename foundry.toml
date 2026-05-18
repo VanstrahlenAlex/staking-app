@@ -3,4 +3,7 @@ src = "src"
 out = "out"
 libs = ["lib"]
 
+# Forzamos el uso de la versión que ya tiene tu terminal de ZKsync
+solc = "0.8.35"
+
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
